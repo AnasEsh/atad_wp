@@ -440,43 +440,11 @@ class FlutterVendor extends FlutterBaseController
 			
 			if (isset($request['warranty_image'])) {
                 update_post_meta($post_id, '_product_warranty_image_id', $request['warranty_image']);
-				if (isset($request['warranty_image'])) {
-					update_post_meta($post_id, '_product_warranty_image_url', $request['warranty_image_url']);
-				}
-            }
-			
-			if (isset($request['condition'])) {
-				update_post_meta($post_id, '_product_condition', $request['condition']);
             }
 			
 			if (isset($user_id)) {
 				update_post_meta($post_id, '_created_by_user', $user_id);
             }
-			
-			if (isset($request['used_months'])) {
-				update_post_meta($post_id, '_product_used_months', $request['used_months']);
-            }
-			
-			if (isset($request['warranty_months'])) {
-				update_post_meta($post_id, '_product_warranty_months', $request['warranty_months']);
-            }
-			
-			if (isset($request['electricity_gas'])) {
-				update_post_meta($post_id, '_product_electricity_gas', $request['electricity_gas']);
-            }
-			
-			if (isset($request['electricity_volts'])) {
-				update_post_meta($post_id, '_product_electricity_volts', $request['electricity_volts']);
-            }
-			
-			if (isset($request['rating'])) {
-				update_post_meta($post_id, '_product_rating', $request['rating']);
-            }
-			
-			if (isset($request['warranty_available'])) {
-				update_post_meta($post_id, '_product_warranty_available', $request['warranty_available']);
-            }
-
             wp_set_object_terms($post_id, isset($request['product_type']) ? $request['product_type'] : "simple", 'product_type');
             $product->save();
             $product = wc_get_product($post_id);
@@ -488,7 +456,8 @@ class FlutterVendor extends FlutterBaseController
                 $product->set_category_ids($catts);
                 $product->save();
             }
-            return $product->get_data();
+            do_action('flutter_create_product_request',$post_id,$request);
+            return array_merge($product->get_data(), get_fields($product->get_id()));
         } else {
             return parent::sendError("invalid_role", "You must be seller to create product", 401);
         }

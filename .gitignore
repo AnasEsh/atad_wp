@@ -1,2 +1,9 @@
 portal/wp-content/uploads
 portal/wp-config.php
+.DS_Store
+portal/wp-content/.DS_Store
+.DS_Store
+portal/.DS_Store
+portal/wp-content/.DS_Store
+.DS_Store
+portal/wp-content/plugins/.DS_Store
