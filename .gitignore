@@ -7,3 +7,4 @@ portal/.DS_Store
 portal/wp-content/.DS_Store
 .DS_Store
 portal/wp-content/plugins/.DS_Store
+portal/wp-config.php
